@@ -54,9 +54,6 @@ class Osoba
         }
 };
 
-Osoba* studenci[ilosc_osob] = {};
-
-
 
 class ListaObecnosci
 {
@@ -149,16 +146,16 @@ class InterfejsUzytkownika
     Osoba **tablicaOsob;
     int iloscOsob;
     ListaObecnosci **tablicaList;
-    int iloscList;
+    int iloscList = 0;
 
-void wyswietlListeStudentow(Osoba* studenci[]) 
+void wyswietlListeStudentow() 
 {
    int count = 0;
-   for (int i = 0; i < ilosc_osob; i++)
+   for (int i = 0; i < iloscOsob; i++)
    {
-    if (studenci[i] != nullptr)
+    if (tablicaOsob[i] != nullptr)
     {
-        studenci[i]->wyswietl();
+        tablicaOsob[i]->wyswietl();
         count++;
     }
     
@@ -173,9 +170,9 @@ void wyswietlListeStudentow(Osoba* studenci[])
 Osoba* wyszukajPoIndeksie(int indeks) {
     for (int i = 0; i < ilosc_osob; i++)
     {
-        if (studenci[i] != nullptr && studenci[i] -> getIndeks() == indeks)
+        if (tablicaOsob[i] != nullptr && tablicaOsob[i] -> getIndeks() == indeks)
         {
-            return studenci[i];
+            return tablicaOsob[i];
         }
     }
     return nullptr;    
@@ -194,9 +191,9 @@ Osoba* wyszukajPoIndeksie(int indeks) {
 void dodajStudenta(string nazwisko, string imie, int indeks) {
     for (int i = 0; i < ilosc_osob; i++)
     {
-        if (studenci[i] == nullptr)
+        if (tablicaOsob[i] == nullptr)
         {
-            studenci[i] = new Osoba(nazwisko, imie, indeks);
+            tablicaOsob[i] = new Osoba(nazwisko, imie, indeks);
             return;
         }
     }
@@ -238,7 +235,6 @@ void dodajListe() {
     
     cout << "\n";
 
-    cin >> input;
     switch (input)
     {
     case 1: //Dodaj Osobe
@@ -352,7 +348,7 @@ case 3: //Wybierz liste obecnosci z ktora chcesz pracowac
 
 case 4: //Wyswietl baze osob
         
-        wyswietlListeStudentow(tablicaOsob);
+        wyswietlListeStudentow();
         break;
         
 case 5: //Edytuj dane osoby w bazie
@@ -362,8 +358,8 @@ case 5: //Edytuj dane osoby w bazie
     
     cout << "\n";
     cout << "1: Zmien nr Indeksu\n";
-    cout << "2: Zmien Imie\n";
-    cout << "3: Zmien Nazwisko\n";
+    cout << "2: Zmien Nazwisko\n";
+    cout << "3: Zmien Imie\n";
     cout << "4: Koniec\n";
     cout << "\n";
     
@@ -419,10 +415,6 @@ case 6: //Zakoncz
 
 };
 
-
-
-ListaObecnosci* listy[ilosc_list] = {};
-int liczbaList = 0;
 
 int main() {
 
